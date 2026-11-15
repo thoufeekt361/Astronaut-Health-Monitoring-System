@@ -1,0 +1,73 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: cosmic-six-mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: cosmic-six
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - cosmic-network
+
+  ml-service:
+    build:
+      context: ./ml-service
+      dockerfile: Dockerfile
+    container_name: cosmic-six-ml
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      - PORT=8000
+      - HOST=0.0.0.0
+      - ENVIRONMENT=production
+    volumes:
+      - ./ml-service/models:/app/models
+    networks:
+      - cosmic-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: cosmic-six-backend
+    restart: always
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - NODE_ENV=production
+      - MONGODB_URI=mongodb://mongodb:27017/cosmic-six
+      - JWT_SECRET=cosmic_six_jwt_super_secret_space_key_2026
+      - ML_SERVICE_URL=http://ml-service:8000
+      - CLIENT_URL=http://localhost:3000
+    depends_on:
+      - mongodb
+      - ml-service
+    networks:
+      - cosmic-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: cosmic-six-frontend
+    restart: always
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - cosmic-network
+
+networks:
+  cosmic-network:
+    driver: bridge
+
+volumes:
+  mongo_data:

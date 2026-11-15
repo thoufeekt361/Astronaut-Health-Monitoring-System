@@ -1,0 +1,25 @@
+{
+  "name": "cosmic-six-monorepo",
+  "version": "1.0.0",
+  "description": "COSMIC SIX - Astronaut Health Monitoring & Intelligent Prediction System (NASA Space Apps Challenge 2026)",
+  "private": true,
+  "scripts": {
+    "install:all": "npm --prefix backend install && npm --prefix frontend install",
+    "dev:backend": "npm --prefix backend run dev",
+    "dev:frontend": "npm --prefix frontend run dev",
+    "build:backend": "npm --prefix backend run build",
+    "build:frontend": "npm --prefix frontend run build"
+  },
+  "keywords": [
+    "nasa-space-apps",
+    "astronaut-health",
+    "telemetry",
+    "machine-learning",
+    "isolation-forest",
+    "react",
+    "express",
+    "fastapi"
+  ],
+  "author": "COSMIC SIX Architecture Team",
+  "license": "MIT"
+}

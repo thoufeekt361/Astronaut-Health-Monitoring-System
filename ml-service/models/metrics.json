@@ -1,0 +1,25 @@
+{
+  "evaluationDatasetSize": 2000,
+  "anomalyRatio": 0.15,
+  "rocAucScore": 0.9977,
+  "accuracy": 0.9765,
+  "precision": 0.9738,
+  "recall": 0.8667,
+  "f1Score": 0.9171,
+  "confusionMatrix": {
+    "trueNegatives": 1693,
+    "falsePositives": 7,
+    "falseNegatives": 40,
+    "truePositives": 260
+  },
+  "modelArchitecture": "IsolationForest (scikit-learn)",
+  "featuresEvaluated": [
+    "heartRate",
+    "spo2",
+    "temperature",
+    "systolicBP",
+    "diastolicBP",
+    "respiratoryRate",
+    "activityLevel"
+  ]
+}
